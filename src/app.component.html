@@ -1,4 +1,9 @@
-@if (session()) {
+@if (session() === undefined) {
+<div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-[radial-gradient(#1E293B_1px,transparent_1px)] [background-size:16px_16px]">
+  <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+  <p class="mt-4 text-green-400">Initializing Session...</p>
+</div>
+} @else if (session()) {
 <div class="min-h-screen bg-black bg-[radial-gradient(#1E293B_1px,transparent_1px)] [background-size:16px_16px] flex flex-col">
 
   <!-- HEADER -->

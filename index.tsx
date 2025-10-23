@@ -3,11 +3,13 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { provideZonelessChangeDetection } from '@angular/core';
 
-// A minimal polyfill for the 'process' object. This prevents a crash
-// if 'process' is not defined, while allowing the execution environment
-// to inject environment variables into `process.env`.
+// A more robust polyfill for the 'process' object. This prevents crashes
+// if 'process' or 'process.env' is not defined, improving compatibility
+// with libraries that might expect them.
 if (typeof (window as any).process === 'undefined') {
-  (window as any).process = {};
+  (window as any).process = {
+    env: {}
+  };
 }
 
 import { AppComponent } from './src/app.component';

@@ -1,4 +1,5 @@
 
+
 import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { SupabaseService } from './services/supabase.service';
 
@@ -62,8 +63,8 @@ export class AppComponent {
     this.isMobileMenuOpen.set(false);
   }
 
-  async signOut(): Promise<void> {
-    await this.supabaseService.signOut();
+  signOut(): void {
+    this.supabaseService.signOut();
     this.isMobileMenuOpen.set(false);
   }
 }

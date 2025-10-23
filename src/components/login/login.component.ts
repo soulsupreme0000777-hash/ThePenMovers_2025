@@ -1,4 +1,5 @@
 
+
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { SupabaseService } from '../../services/supabase.service';
 
@@ -25,18 +26,23 @@ export class LoginComponent {
     this.loading.set(true);
     this.error.set(null);
 
-    const { data, error } = await this.supabaseService.signInWithPassword(this.email(), this.password());
-    
-    if (error) {
-        this.error.set(error.message);
-    } else if (!data.session && data.user) {
-        // This case handles when the user has signed up but not confirmed their email.
-        this.error.set('Please check your email and click the confirmation link to sign in.');
-    }
-    // On a fully successful login (data.session is not null), 
-    // the onAuthStateChange listener in SupabaseService will update the session signal,
-    // and the app component will automatically switch views.
+    // Simulate a small network delay for better UX, as the check is now instant.
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-    this.loading.set(false);
+    try {
+      const result = this.supabaseService.signInWithPassword(this.email(), this.password());
+      
+      if (!result.success) {
+          this.error.set(result.error || 'An unknown error occurred.');
+      }
+      // On successful login, the session signal in the service will be updated,
+      // and the app component will automatically switch the view. Nothing more to do here.
+    } catch (e) {
+      const message = e instanceof Error ? e.message : 'An unexpected error occurred during login.';
+      this.error.set(message);
+      console.error('Login Exception:', e);
+    } finally {
+      this.loading.set(false);
+    }
   }
 }
