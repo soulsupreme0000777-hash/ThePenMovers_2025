@@ -1,0 +1,123 @@
+@if (session()) {
+<div class="min-h-screen bg-black bg-[radial-gradient(#1E293B_1px,transparent_1px)] [background-size:16px_16px] flex flex-col">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 w-full bg-black/80 backdrop-blur-lg border-b border-gray-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Website Title -->
+        <div class="flex-shrink-0">
+          <h1 
+            class="text-xl sm:text-2xl font-bold text-gray-100 tracking-wider cursor-pointer font-['Orbitron']" 
+            (click)="selectFeature('home')">
+            ThePenMovers
+          </h1>
+        </div>
+        
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-1">
+          @for (item of navItems; track item.id) {
+            <button 
+              (click)="selectFeature(item.id)"
+              [title]="item.label"
+              [class]="'flex items-center gap-2 px-3 py-2 text-sm font-semibold rounded-md transition-all duration-200 ' + (selectedFeature() === item.id ? 'bg-green-600 text-white shadow-lg shadow-green-600/30' : 'text-gray-400 hover:bg-gray-800 hover:text-white')">
+              <span [innerHTML]="item.icon"></span>
+              <span class="hidden lg:inline">{{ item.label }}</span>
+            </button>
+          }
+           <button 
+              (click)="signOut()"
+              title="Logout"
+              class="flex items-center gap-2 px-3 py-2 text-sm font-semibold rounded-md transition-all duration-200 text-gray-400 hover:bg-red-800 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" /></svg>
+              <span class="hidden lg:inline">Logout</span>
+            </button>
+        </nav>
+        
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button (click)="isMobileMenuOpen.set(true)" class="text-gray-400 hover:text-white p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  @if(isMobileMenuOpen()) {
+    <div class="fixed inset-0 z-50 md:hidden">
+      <!-- Backdrop -->
+      <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" (click)="isMobileMenuOpen.set(false)"></div>
+      <!-- Menu -->
+      <div class="fixed top-0 left-0 bottom-0 w-64 bg-gray-900 border-r border-gray-800 p-4 transform transition-transform duration-300 ease-in-out" [class.translate-x-0]="isMobileMenuOpen()" [class.-translate-x-full]="!isMobileMenuOpen()">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-lg font-bold font-['Orbitron']">Menu</h2>
+          <button (click)="isMobileMenuOpen.set(false)" class="text-gray-400 hover:text-white p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-2">
+           @for (item of navItems; track item.id) {
+            <button 
+              (click)="selectFeature(item.id)"
+              [class]="'flex items-center gap-3 p-3 w-full text-left text-sm font-semibold rounded-md transition-all duration-200 ' + (selectedFeature() === item.id ? 'bg-green-600 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white')">
+              <span [innerHTML]="item.icon"></span>
+              <span>{{ item.label }}</span>
+            </button>
+          }
+          <button 
+            (click)="signOut()"
+            class="flex items-center gap-3 p-3 w-full text-left text-sm font-semibold rounded-md transition-all duration-200 text-gray-400 hover:bg-red-800 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" /></svg>
+            <span>Logout</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  }
+
+  <!-- MAIN CONTENT -->
+  <main class="w-full max-w-6xl mx-auto flex-grow p-4 sm:p-6 lg:p-8">
+    @switch (selectedFeature()) {
+      @case ('home') {
+        <app-home [features]="navItems" (navigate)="selectFeature($event)"/>
+      }
+      @case ('generate') {
+        <app-image-generator />
+      }
+      @case ('edit') {
+        <app-image-editor />
+      }
+      @case ('fix') {
+        <app-grammar-checker />
+      }
+      @case ('analyze') {
+        <app-image-analyzer />
+      }
+      @case ('transcribe') {
+        <app-audio-transcriber />
+      }
+      @case ('search') {
+        <app-grounded-search />
+      }
+      @case ('creator') {
+        <app-creator />
+      }
+    }
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full text-center text-gray-500 text-sm p-4">
+    <p>Powered by 3 Bottles of Cobra and Sushiii</p>
+  </footer>
+</div>
+} @else {
+  <app-login />
+}

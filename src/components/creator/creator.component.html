@@ -1,0 +1,109 @@
+<style>
+  .creator-card {
+    font-family: 'Orbitron', sans-serif;
+    border: 2px solid #fff;
+    box-shadow: 0 0 15px #fff, 0 0 25px #0f0, 0 0 35px #0f0;
+    animation: glow 2s infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0f0;
+    }
+    to {
+      box-shadow: 0 0 20px #fff, 0 0 30px #4f4, 0 0 40px #4f4;
+    }
+  }
+
+  .about-me-btn {
+    border: 1px solid #fff;
+    transition: all 0.3s ease;
+  }
+  .about-me-btn:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 0 10px #fff;
+  }
+  .audio-wave span {
+    height: 10px;
+    width: 2px;
+    background-color: #fff;
+    display: inline-block;
+    margin: 0 1px;
+    animation: wave 1.2s infinite ease-in-out;
+    animation-delay: var(--delay);
+  }
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.1); }
+    50% { transform: scaleY(1); }
+  }
+</style>
+
+<div class="flex justify-center items-center py-10">
+  <div class="creator-card bg-black text-white w-full max-w-sm p-8 rounded-lg flex flex-col items-center gap-4">
+    
+    <img 
+      src="https://scontent.fcrk2-2.fna.fbcdn.net/v/t39.30808-6/506184243_3536086073195428_1349630626486842165_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFfZ2fFMPCRIghlEWCJL7pd89W_MC-RW7_z1b8wL5Fbv9LjcHaibLnZEovRJGhWiGg9NDSUhwAAXxWpWo1do35e&_nc_ohc=guifUJ8osk0Q7kNvwFbRA3_&_nc_oc=AdnEx4Zk2TohmlUhriY87xWd0d2ulWWDahbARddDvjzRU8x7QC0nr8RzGHo4upF3WwQ&_nc_zt=23&_nc_ht=scontent.fcrk2-2.fna&_nc_gid=j8ZoliK7P5Tsy1I4BHqSYw&oh=00_AfdfIZEkyyDLqhZHG1frs2rpOauMGWU6EtCREMLc8mxK_w&oe=69002D9C" 
+      alt="Creator's Profile Picture"
+      class="w-32 h-32 rounded-full border-2 border-white shadow-[0_0_15px_#fff]">
+
+    <div class="text-center">
+      <h2 class="text-2xl font-bold tracking-widest">KYLE DE GUZMAN</h2>
+      <p class="text-sm text-gray-400 mt-1">// Sushiii_</p>
+    </div>
+
+    <div class="flex gap-6 my-2">
+      <a href="https://www.facebook.com/kyle.de.guzman.153933" target="_blank" rel="noopener noreferrer" class="text-white hover:text-green-400 transition-colors" aria-label="Facebook">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12Z"/></svg>
+      </a>
+      <a href="https://open.spotify.com/user/21yt6kqlnro2uspyn6legyfaq?si=7077d2fae60a45f8" target="_blank" rel="noopener noreferrer" class="text-white hover:text-green-400 transition-colors" aria-label="Spotify">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.173 15.113c-.19.31-.578.423-.88.232-2.4-1.487-5.385-1.83-8.995-1.003-.35.08-.69-.15-.77-.5-.08-.35.15-.69.5-.77C10.21 6.18 13.59 6.57 16.38 8.28c.3.18.41.57.23.88l-.437.953zm.88-2.323c-.23.37-.69.5-1.06.27-2.69-1.64-6.76-2.09-9.92-1.15-.41.12-.84-.12-.96-.53-.12-.41.12-.84.53-.96C12.3 8.12 16.79 8.61 19.87 10.5c.37.22.49.68.27 1.05l-.54 1.186zm.11-2.486c-3.22-1.88-8.52-2.03-11.75-1.12-.49.13-.99-.16-1.12-.65-.13-.49.16-.99.65-1.12C12.11 6.03 17.92 6.2 21.7 8.35c.45.26.6.85.34 1.3-.26.45-.85.6-1.3.34l-.59-.34z"/></svg>
+      </a>
+      <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-green-400 transition-colors" aria-label="GitHub">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.82c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.852 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0 0 22 12c0-5.523-4.477-10-10-10Z"/></svg>
+      </a>
+    </div>
+
+    <button (click)="toggleAboutMe()" class="about-me-btn px-6 py-2 text-sm tracking-widest">
+      [ABOUT ME]
+    </button>
+    
+    @if (showAboutMe()) {
+      <div class="text-center text-sm text-gray-300 mt-4 space-y-2 text-justify">
+        <p>
+            As a final-year Information Technology student at NEUST and a passionate Photojournalist for ThePenMovers, I find myself at the unique intersection of technology and storytelling. This platform, ThePenMovers Digital Toolkit, is the culmination of that duality.
+        </p>
+        <p>
+            My journey in IT has equipped me with the skills to build complex applications, while my role as a photojournalist has given me a deep appreciation for the creative process and the challenges that campus journalists face. This project is not just a requirement for my degree; it's a contribution to the organization that has shaped my university experience.
+        </p>
+      </div>
+    }
+
+    <div class="w-full mt-4 text-center">
+      <p class="text-xs text-gray-500 tracking-widest">Awaiting Signal...</p>
+      <div class="flex items-center justify-between mt-2">
+        <span><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M8.28 2.22a.75.75 0 0 0-1.06 1.06L9.94 6H6.75a.75.75 0 0 0 0 1.5h3.19L7.22 9.72a.75.75 0 1 0 1.06 1.06l3.5-3.5a.75.75 0 0 0 0-1.06l-3.5-3.5Z"/><path d="M4 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4Zm11.5 1.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5h11.5Z"/></svg></span>
+        <div class="flex items-center gap-4">
+            <span><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M12.22 4.72a.75.75 0 0 0-1.06 1.06L12.94 7.5H4.75a.75.75 0 0 0 0 1.5h8.19l-1.78 1.78a.75.75 0 1 0 1.06 1.06l3-3a.75.75 0 0 0 0-1.06l-3-3Z"/></svg></span>
+            <span><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 0 0 4 4.11V15.89a1.5 1.5 0 0 0 2.3 1.269l9.344-5.89a1.5 1.5 0 0 0 0-2.538L6.3 2.84Z"/></svg></span>
+            <span><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M7.78 4.72a.75.75 0 0 1 1.06 1.06L7.06 7.5h8.19a.75.75 0 0 1 0 1.5H7.06l1.78 1.78a.75.75 0 1 1-1.06 1.06l-3-3a.75.75 0 0 1 0-1.06l-3-3Z"/></svg></span>
+        </div>
+        <span><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3ZM3 5.5A1.5 1.5 0 0 1 4.5 4h11A1.5 1.5 0 0 1 17 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 14.5v-9Z"/></svg></span>
+      </div>
+      <div class="flex items-center justify-center gap-px mt-1">
+        <span class="audio-wave" style="--delay: 0s;"></span>
+        <span class="audio-wave" style="--delay: 0.1s;"></span>
+        <span class="audio-wave" style="--delay: 0.2s;"></span>
+        <span class="audio-wave" style="--delay: 0.3s;"></span>
+        <span class="audio-wave" style="--delay: 0.4s;"></span>
+        <span class="audio-wave" style="--delay: 0.1s;"></span>
+        <span class="audio-wave" style="--delay: 0.2s;"></span>
+        <span class="audio-wave" style="--delay: 0.3s;"></span>
+        <span class="audio-wave" style="--delay: 0s;"></span>
+        <span class="audio-wave" style="--delay: 0.15s;"></span>
+        <span class="audio-wave" style="--delay: 0.25s;"></span>
+        <span class="audio-wave" style="--delay: 0.35s;"></span>
+      </div>
+    </div>
+  </div>
+</div>

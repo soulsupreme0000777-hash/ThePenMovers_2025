@@ -1,0 +1,51 @@
+<div class="bg-gray-900 p-6 rounded-lg shadow-xl max-w-4xl mx-auto">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-2xl font-bold text-center text-green-500 font-['Orbitron']">Image Analyzer</h2>
+    <p class="text-center text-gray-400">Unlock the stories within your images. Upload any picture, and ask our AI to identify objects, explain contexts, read text, or even generate a creative caption. It's visual intelligence at your service.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <div class="flex flex-col gap-4">
+        <label for="analyzer-upload" class="cursor-pointer bg-gray-800 border-2 border-dashed border-gray-600 rounded-lg p-4 text-center hover:border-green-500 transition-colors">
+          <span class="text-gray-400">{{ selectedFile() ? selectedFile().name : 'Click to upload an image' }}</span>
+          <input id="analyzer-upload" type="file" class="hidden" accept="image/*" (change)="onFileSelected($event)" />
+        </label>
+        
+        <div class="bg-black p-2 rounded-lg min-h-[200px] flex items-center justify-center">
+            @if(previewUrl(); as url) {
+                <img [src]="url" alt="Image preview" class="rounded-md max-w-full max-h-[300px] object-contain">
+            } @else {
+                <p class="text-gray-500">Image Preview</p>
+            }
+        </div>
+      </div>
+      
+      <div class="flex flex-col gap-4">
+        <input 
+          type="text"
+          class="w-full p-3 bg-gray-800 border border-gray-700 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-200"
+          placeholder="Ask a question about the image..."
+          [value]="prompt()"
+          (input)="prompt.set($event.target.value)">
+        <button 
+          (click)="analyzeImage()" 
+          [disabled]="loading() || !selectedFile()"
+          class="w-full p-3 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors duration-200">
+          Analyze
+        </button>
+
+        <div class="mt-2 bg-black p-4 rounded-lg min-h-[200px]">
+          <h3 class="font-semibold text-gray-400 mb-2">Analysis:</h3>
+          @if (loading()) {
+            <app-loader text="Analyzing..." />
+          } @else if (error()) {
+            <p class="text-red-500">{{ error() }}</p>
+          } @else if (analysis(); as text) {
+            <p class="text-gray-300 whitespace-pre-wrap">{{ text }}</p>
+          } @else {
+            <p class="text-gray-500">The analysis will appear here.</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

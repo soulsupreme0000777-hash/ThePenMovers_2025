@@ -1,0 +1,52 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/80 backdrop-blur-sm" (click)="close.emit()"></div>
+  
+  <!-- Modal Content -->
+  <div class="relative z-10 w-full max-w-4xl bg-gray-900 border border-gray-700 rounded-lg shadow-xl p-6 m-4 max-h-[90vh] flex flex-col">
+    
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-bold text-gray-200 font-['Orbitron']">Download Image</h3>
+      <button (click)="close.emit()" class="text-gray-400 hover:text-white transition-colors p-1">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex-grow flex flex-col md:flex-row gap-6 overflow-y-auto">
+      <!-- Image Preview -->
+      <div class="flex-grow md:w-2/3 bg-black rounded-lg flex items-center justify-center p-4">
+        <img [src]="imageUrl()" alt="Image Preview" class="max-w-full max-h-full object-contain rounded-md">
+      </div>
+      
+      <!-- Download Options -->
+      <div class="md:w-1/3 flex flex-col gap-3">
+        <h4 class="font-semibold text-gray-300">Choose Quality:</h4>
+        @if(isProcessing()) {
+          <div class="flex items-center justify-center h-full">
+            <app-loader [text]="processingMessage()" />
+          </div>
+        } @else {
+          <button (click)="downloadImage('png')" class="w-full text-left p-3 bg-gray-800 hover:bg-green-700 rounded-md transition-colors duration-200">
+            <span class="font-bold text-white">PNG (Highest Quality)</span>
+            <span class="block text-xs text-gray-400">Original lossless file. Best for editing.</span>
+          </button>
+          <button (click)="downloadImage('jpeg', 0.92)" class="w-full text-left p-3 bg-gray-800 hover:bg-green-700 rounded-md transition-colors duration-200">
+            <span class="font-bold text-white">JPG (High Quality)</span>
+            <span class="block text-xs text-gray-400">Great balance of quality and file size.</span>
+          </button>
+          <button (click)="downloadImage('jpeg', 0.75)" class="w-full text-left p-3 bg-gray-800 hover:bg-green-700 rounded-md transition-colors duration-200">
+            <span class="font-bold text-white">JPG (Medium Quality)</span>
+            <span class="block text-xs text-gray-400">Good for web and sharing.</span>
+          </button>
+          <button (click)="downloadImage('jpeg', 0.5)" class="w-full text-left p-3 bg-gray-800 hover:bg-green-700 rounded-md transition-colors duration-200">
+            <span class="font-bold text-white">JPG (Low Quality)</span>
+            <span class="block text-xs text-gray-400">Smallest file size.</span>
+          </button>
+        }
+      </div>
+    </div>
+
+  </div>
+</div>

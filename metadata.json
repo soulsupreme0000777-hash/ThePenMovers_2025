@@ -1,0 +1,7 @@
+{
+  "name": "ThePenMovers",
+  "description": "ThePenMovers - Your AI-powered content creation and analysis hub. Generate stunning visuals, edit images with text, transcribe audio, and get grounded, up-to-date answers.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

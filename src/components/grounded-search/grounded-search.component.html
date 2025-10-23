@@ -1,0 +1,50 @@
+<div class="bg-gray-900 p-6 rounded-lg shadow-xl max-w-3xl mx-auto">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-2xl font-bold text-center text-green-500 font-['Orbitron']">Grounded Search</h2>
+    <p class="text-center text-gray-400">Get reliable, up-to-the-minute answers. Powered by Google Search, this tool provides responses to your queries based on the latest information from the web, complete with source citations for verification.</p>
+    
+    <div class="flex gap-2">
+      <input 
+        type="text"
+        class="flex-grow p-3 bg-gray-800 border border-gray-700 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-200"
+        placeholder="e.g., Who won the latest F1 race?"
+        [value]="prompt()"
+        (input)="prompt.set($event.target.value)"
+        (keyup.enter)="search()">
+      <button 
+        (click)="search()" 
+        [disabled]="loading() || !prompt().trim()"
+        class="p-3 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors duration-200">
+        Search
+      </button>
+    </div>
+
+    <div class="w-full mt-4 bg-black p-4 rounded-lg min-h-[200px]">
+      <h3 class="font-semibold text-gray-400 mb-2">Answer:</h3>
+      @if (loading()) {
+        <app-loader text="Searching the web..." />
+      } @else if (error()) {
+        <p class="text-red-500">{{ error() }}</p>
+      } @else if (answer(); as text) {
+        <p class="text-gray-300 whitespace-pre-wrap">{{ text }}</p>
+
+        @if (sources().length > 0) {
+          <div class="mt-6 border-t border-gray-700 pt-4">
+            <h4 class="font-semibold text-gray-400 mb-2">Sources:</h4>
+            <ul class="list-disc list-inside space-y-2">
+              @for (source of sources(); track source.web.uri) {
+                <li>
+                  <a [href]="source.web.uri" target="_blank" rel="noopener noreferrer" class="text-green-500 hover:underline">
+                    {{ source.web.title || source.web.uri }}
+                  </a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      } @else {
+        <p class="text-gray-500">Your answer will appear here.</p>
+      }
+    </div>
+  </div>
+</div>

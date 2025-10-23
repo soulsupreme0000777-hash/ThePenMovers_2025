@@ -1,0 +1,61 @@
+<div class="bg-gray-900 p-6 rounded-lg shadow-xl max-w-3xl mx-auto">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-2xl font-bold text-center text-green-500 font-['Orbitron']">Image Generator</h2>
+    <p class="text-center text-gray-400">Unleash your imagination. Type a detailed description, and our AI will craft a unique, high-quality image from your words. The more specific your prompt, the better the result.</p>
+    
+    <textarea 
+      class="w-full p-3 bg-gray-800 border border-gray-700 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-200"
+      rows="4"
+      placeholder="e.g., A majestic lion wearing a crown, cinematic lighting, hyperrealistic"
+      [value]="prompt()"
+      (input)="prompt.set($event.target.value)">
+    </textarea>
+
+    <div class="flex flex-col sm:flex-row gap-4">
+       <div class="flex-grow">
+          <label for="aspectRatio" class="block mb-2 text-sm font-medium text-gray-300">Aspect Ratio</label>
+          <select id="aspectRatio" 
+            class="w-full p-3 bg-gray-800 border border-gray-700 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-200"
+            (change)="updateAspectRatio($event)">
+            @for(ratio of aspectRatios; track ratio) {
+              <option [value]="ratio" [selected]="ratio === selectedAspectRatio()">{{ ratio }}</option>
+            }
+          </select>
+       </div>
+       <button 
+        (click)="generateImage()" 
+        [disabled]="loading() || !prompt().trim()"
+        class="w-full sm:w-auto self-end p-3 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors duration-200">
+        Generate
+      </button>
+    </div>
+
+    <div class="mt-4 p-4 bg-black rounded-lg min-h-[300px] flex items-center justify-center">
+      @if (loading()) {
+        <app-loader text="Generating your masterpiece..." />
+      } @else if (error()) {
+        <p class="text-red-500 text-center">{{ error() }}</p>
+      } @else if (generatedImageUrl(); as url) {
+        <div class="relative group">
+          <img [src]="url" alt="Generated image" class="rounded-md max-w-full max-h-[512px] object-contain">
+          <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
+            <button (click)="showDownloadModal.set(true)" class="bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 transition-colors flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+              Download
+            </button>
+          </div>
+        </div>
+      } @else {
+        <div class="text-center text-gray-500">
+          <p>Your generated image will appear here.</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+@if(showDownloadModal() && generatedImageUrl()) {
+  <app-download-modal 
+    [imageUrl]="generatedImageUrl()!" 
+    (close)="showDownloadModal.set(false)" />
+}

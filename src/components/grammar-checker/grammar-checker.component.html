@@ -1,0 +1,56 @@
+<div class="bg-gray-900 p-6 rounded-lg shadow-xl max-w-4xl mx-auto">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-2xl font-bold text-center text-green-500 font-['Orbitron']">Fix Writeup</h2>
+    <p class="text-center text-gray-400">
+      Your AI-powered writing assistant. Paste your article, press check, and get intelligent feedback on grammar, spelling, and phrasing for both English and Filipino. The AI will highlight errors, explain what's wrong, and offer suggestions to help you improve.
+    </p>
+    
+    <textarea 
+      class="w-full p-3 bg-gray-800 border border-gray-700 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-200 min-h-[250px] text-base leading-relaxed"
+      placeholder="Paste your text here..."
+      [value]="text()"
+      (input)="text.set($event.target.value)">
+    </textarea>
+
+    <button 
+      (click)="checkText()" 
+      [disabled]="loading() || !text().trim()"
+      class="w-full sm:w-auto self-center p-3 px-8 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors duration-200">
+      Check Text
+    </button>
+
+    <div class="mt-4 w-full bg-black p-4 rounded-lg min-h-[200px]">
+      <h3 class="font-semibold text-gray-400 mb-4 border-b border-gray-700 pb-2">Analysis Results:</h3>
+      @if (loading()) {
+        <app-loader text="Analyzing your text..." />
+      } @else if (error()) {
+        <p class="text-red-500 text-center">{{ error() }}</p>
+      } @else if (results(); as corrections) {
+        @if (corrections.length > 0) {
+          <div class="space-y-4">
+            @for (item of corrections; track $index) {
+              <div class="bg-gray-800/50 border border-gray-700 p-4 rounded-md">
+                <p class="text-red-400 italic">
+                  <span class="font-semibold not-italic text-gray-400">Error:</span> "{{ item.error_text }}"
+                </p>
+                <p class="text-gray-300 mt-2">
+                  <span class="font-semibold text-gray-400">Explanation:</span> {{ item.explanation }}
+                </p>
+                <p class="text-green-400 mt-2">
+                  <span class="font-semibold text-gray-400">Suggestion:</span> "{{ item.suggestion }}"
+                </p>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="text-center text-green-400 flex flex-col items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+            <p>No errors found! Looks good to go.</p>
+          </div>
+        }
+      } @else {
+        <p class="text-gray-500 text-center">Your analysis results will appear here.</p>
+      }
+    </div>
+  </div>
+</div>

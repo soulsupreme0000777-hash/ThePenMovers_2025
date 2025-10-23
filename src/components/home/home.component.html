@@ -1,0 +1,40 @@
+<div class="bg-gray-900 p-6 sm:p-8 rounded-lg shadow-xl max-w-4xl mx-auto text-gray-300">
+  <div class="flex flex-col gap-8">
+    <div class="text-center">
+      <h2 class="text-3xl font-bold text-green-500 font-['Orbitron']">ThePenMovers Digital Toolkit</h2>
+      <p class="mt-2 text-lg text-gray-400">Your AI-powered creative co-pilot for campus journalism.</p>
+    </div>
+    
+    <div class="space-y-4 text-lg text-justify leading-relaxed">
+      <p>
+        This platform is an exclusive, cutting-edge suite of AI-powered tools crafted specifically for the talented members of <span class="font-semibold text-green-400">ThePenMovers</span>. Our mission is to empower you with the technology to create, innovate, and deliver compelling news and stories to the entire student body at NEUST.
+      </p>
+    </div>
+
+    <!-- Features Overview -->
+    <div class="border-t border-gray-700 pt-8">
+      <h3 class="text-2xl font-bold text-center text-green-500 mb-6 font-['Orbitron']">Features Overview</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for(item of featureItems(); track item.id) {
+          <div class="bg-gray-800/50 border border-gray-700 rounded-lg p-6 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-green-500 hover:shadow-lg hover:shadow-green-500/10">
+            <div class="text-green-400" [innerHTML]="item.icon.replace('w-5 h-5', 'w-10 h-10')"></div>
+            <h4 class="text-xl font-bold text-white font-['Orbitron']">{{ item.label }}</h4>
+            <p class="text-gray-400 text-sm flex-grow">
+              @switch(item.id) {
+                @case('generate') { Unleash your imagination. Craft unique, high-quality images from just a text description. }
+                @case('edit') { Transform your photos with simple text commands. Add elements, change styles, and more. }
+                @case('fix') { Polish your writeups. Get AI-powered grammar and syntax analysis for English and Filipino. }
+                @case('analyze') { Unlock the stories within your images. Identify objects, explain contexts, and read text. }
+                @case('transcribe') { Convert spoken words into written text effortlessly. Record interviews, notes, or thoughts. }
+                @case('search') { Get reliable, up-to-the-minute answers powered by Google Search for your reports. }
+              }
+            </p>
+            <button (click)="navigateTo(item.id)" class="mt-4 w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-green-700 transition-colors">
+              Launch Tool
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
