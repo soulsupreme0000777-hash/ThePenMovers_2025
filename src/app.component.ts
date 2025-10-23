@@ -1,12 +1,7 @@
 
-
-
-
 import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { SupabaseService } from './services/supabase.service';
 
-import { ImageGeneratorComponent } from './components/image-generator/image-generator.component';
-import { ImageEditorComponent } from './components/image-editor/image-editor.component';
 import { GroundedSearchComponent } from './components/grounded-search/grounded-search.component';
 import { AudioTranscriberComponent } from './components/audio-transcriber/audio-transcriber.component';
 import { ImageAnalyzerComponent } from './components/image-analyzer/image-analyzer.component';
@@ -15,6 +10,8 @@ import { CreatorComponent } from './components/creator/creator.component';
 import { GrammarCheckerComponent } from './components/grammar-checker/grammar-checker.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoComponent } from './components/shared/logo/logo.component';
+import { ImageGeneratorComponent } from './components/image-generator/image-generator.component';
+import { ImageEditorComponent } from './components/image-editor/image-editor.component';
 
 
 type Feature = 'home' | 'generate' | 'edit' | 'analyze' | 'transcribe' | 'fix' | 'search' | 'creator';
@@ -31,11 +28,11 @@ interface NavItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     HomeComponent,
-    ImageGeneratorComponent,
-    ImageEditorComponent,
     GroundedSearchComponent,
     AudioTranscriberComponent,
     ImageAnalyzerComponent,
+    ImageGeneratorComponent,
+    ImageEditorComponent,
     CreatorComponent,
     GrammarCheckerComponent,
     LoginComponent,
@@ -51,8 +48,8 @@ export class AppComponent {
 
   readonly navItems: NavItem[] = [
     { id: 'home', label: 'Home', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>' },
-    { id: 'generate', label: 'Generate', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>' },
-    { id: 'edit', label: 'Edit', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>' },
+    { id: 'generate', label: 'Generator', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" /></svg>' },
+    { id: 'edit', label: 'Editor', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 19.82a2.25 2.25 0 0 1-1.06.632L5.25 21.75l1.287-4.24a2.25 2.25 0 0 1 .632-1.06l11.693-11.693-2.652-2.652Z" /><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 7.125-2.652-2.652" /></svg>' },
     { id: 'fix', label: 'Fix Writeup', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" /></svg>' },
     { id: 'analyze', label: 'Analyze', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>' },
     { id: 'transcribe', label: 'Transcribe', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m12 0v-1.5a6 6 0 0 0-12 0v1.5m12 0a6 6 0 0 1-6 6M9 11.25v1.5m6-1.5v1.5" /></svg>' },

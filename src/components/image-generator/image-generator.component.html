@@ -12,7 +12,7 @@
     </textarea>
 
     <div class="flex flex-col sm:flex-row gap-4">
-       <div class="flex-grow">
+      <div class="flex-grow">
           <label for="aspectRatio" class="block mb-2 text-sm font-medium text-gray-300">Aspect Ratio</label>
           <select id="aspectRatio" 
             class="w-full p-3 bg-gray-800 border border-gray-700 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-200"
@@ -21,8 +21,8 @@
               <option [value]="ratio" [selected]="ratio === selectedAspectRatio()">{{ ratio }}</option>
             }
           </select>
-       </div>
-       <button 
+      </div>
+      <button 
         (click)="generateImage()" 
         [disabled]="loading() || !prompt().trim()"
         class="w-full sm:w-auto self-end p-3 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors duration-200">

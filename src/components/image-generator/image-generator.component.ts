@@ -1,7 +1,6 @@
 
-
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { GeminiService } from '../../services/gemini.service';
+import { NanoBananaService } from '../../services/nano-banana.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { DownloadModalComponent } from '../shared/download-modal/download-modal.component';
 
@@ -12,12 +11,12 @@ import { DownloadModalComponent } from '../shared/download-modal/download-modal.
   imports: [LoaderComponent, DownloadModalComponent]
 })
 export class ImageGeneratorComponent {
-  private readonly geminiService = inject(GeminiService);
+  private readonly nanoBananaService = inject(NanoBananaService);
 
   readonly prompt = signal('');
   readonly generatedImageUrl = signal<string | null>(null);
   readonly loading = signal(false);
-  readonly error = this.geminiService.error;
+  readonly error = signal<string | null>(null);
   readonly selectedAspectRatio = signal<'1:1' | '16:9' | '9:16' | '4:3' | '3:4'>('1:1');
   readonly aspectRatios = ['1:1', '16:9', '9:16', '4:3', '3:4'];
   readonly showDownloadModal = signal(false);
@@ -27,9 +26,19 @@ export class ImageGeneratorComponent {
       this.error.set("Please enter a prompt.");
       return;
     }
-    const imageUrl = await this.geminiService.generateImage(this.loading, this.prompt(), this.selectedAspectRatio());
-    if (imageUrl) {
-      this.generatedImageUrl.set(imageUrl);
+    this.error.set(null);
+    this.loading.set(true);
+    
+    try {
+      const imageUrl = await this.nanoBananaService.generateImage(this.prompt(), this.selectedAspectRatio());
+      if (imageUrl) {
+        this.generatedImageUrl.set(imageUrl);
+      }
+    } catch (e) {
+      this.error.set('An error occurred while generating the image.');
+      console.error(e);
+    } finally {
+      this.loading.set(false);
     }
   }
 

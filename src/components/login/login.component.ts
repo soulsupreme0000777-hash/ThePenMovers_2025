@@ -25,12 +25,17 @@ export class LoginComponent {
     this.loading.set(true);
     this.error.set(null);
 
-    const { error } = await this.supabaseService.signInWithPassword(this.email(), this.password());
+    const { data, error } = await this.supabaseService.signInWithPassword(this.email(), this.password());
     
     if (error) {
         this.error.set(error.message);
-    } 
-    // On successful login, the app component's session signal will trigger the view change.
+    } else if (!data.session && data.user) {
+        // This case handles when the user has signed up but not confirmed their email.
+        this.error.set('Please check your email and click the confirmation link to sign in.');
+    }
+    // On a fully successful login (data.session is not null), 
+    // the onAuthStateChange listener in SupabaseService will update the session signal,
+    // and the app component will automatically switch views.
 
     this.loading.set(false);
   }

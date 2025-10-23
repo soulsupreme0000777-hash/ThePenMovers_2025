@@ -1,7 +1,12 @@
 
 
+
+
+
+
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { GoogleGenAI, GenerateContentResponse, Type } from '@google/genai';
+import { environment } from '../environments/environment';
 
 export interface GroundingChunk {
   web: {
@@ -22,12 +27,14 @@ export interface GrammarError {
 export class GeminiService {
   private ai: GoogleGenAI | null = null;
   public readonly error = signal<string | null>(null);
+  public readonly isBillingError = signal<boolean>(false);
 
   constructor() {
-    const apiKey = process.env['API_KEY'];
-    if (!apiKey) {
-      this.error.set("API_KEY environment variable not set. Please set it to use the application.");
-      console.error("API_KEY environment variable not set.");
+    const apiKey = environment.geminiApiKey;
+
+    if (!apiKey || apiKey === 'YOUR_GEMINI_API_KEY') {
+      this.error.set("Gemini API Key not set. Please update it in the environment.ts file.");
+      console.error("Gemini API key is not set in src/environments/environment.ts. Please replace 'YOUR_GEMINI_API_KEY' with your actual key.");
     } else {
       this.ai = new GoogleGenAI({ apiKey });
     }
@@ -43,10 +50,15 @@ export class GeminiService {
     }
     loadingSignal.set(true);
     this.error.set(null);
+    this.isBillingError.set(false);
     try {
       return await apiCall();
     } catch (e) {
-      const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
+      let errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
+      if (typeof errorMessage === 'string' && errorMessage.includes('Imagen API is only accessible to billed users')) {
+          errorMessage = 'Image generation features require a billing-enabled API key. Please set up billing in your Google Cloud project to use this tool.';
+          this.isBillingError.set(true);
+      }
       this.error.set(errorMessage);
       console.error(e);
       return null;
