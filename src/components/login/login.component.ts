@@ -1,13 +1,12 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SupabaseService } from '../../services/supabase.service';
-import { LoaderComponent } from '../shared/loader/loader.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, LoaderComponent]
+  imports: [FormsModule]
 })
 export class LoginComponent {
   private readonly supabaseService = inject(SupabaseService);
