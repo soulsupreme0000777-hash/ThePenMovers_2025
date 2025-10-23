@@ -1,8 +1,8 @@
 
 
 
+
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { GeminiService } from '../../services/gemini.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { DownloadModalComponent } from '../shared/download-modal/download-modal.component';
@@ -12,7 +12,7 @@ import { ImageUploadService } from '../../services/image-upload.service';
   selector: 'app-image-editor',
   templateUrl: './image-editor.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, LoaderComponent, DownloadModalComponent],
+  imports: [LoaderComponent, DownloadModalComponent],
 })
 export class ImageEditorComponent {
   private readonly geminiService = inject(GeminiService);

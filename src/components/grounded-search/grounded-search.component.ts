@@ -1,6 +1,6 @@
 
+
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { GeminiService, GroundingChunk } from '../../services/gemini.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
 
@@ -8,7 +8,7 @@ import { LoaderComponent } from '../shared/loader/loader.component';
   selector: 'app-grounded-search',
   templateUrl: './grounded-search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, LoaderComponent]
+  imports: [LoaderComponent]
 })
 export class GroundedSearchComponent {
   private readonly geminiService = inject(GeminiService);

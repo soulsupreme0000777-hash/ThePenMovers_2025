@@ -1,5 +1,5 @@
+
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { GeminiService, GrammarError } from '../../services/gemini.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
 
@@ -7,7 +7,7 @@ import { LoaderComponent } from '../shared/loader/loader.component';
   selector: 'app-grammar-checker',
   templateUrl: './grammar-checker.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, LoaderComponent]
+  imports: [LoaderComponent]
 })
 export class GrammarCheckerComponent {
   private readonly geminiService = inject(GeminiService);

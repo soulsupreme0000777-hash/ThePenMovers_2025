@@ -1,7 +1,7 @@
 
 
+
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { GeminiService } from '../../services/gemini.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { ImageUploadService } from '../../services/image-upload.service';
@@ -10,7 +10,7 @@ import { ImageUploadService } from '../../services/image-upload.service';
   selector: 'app-image-analyzer',
   templateUrl: './image-analyzer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, LoaderComponent]
+  imports: [LoaderComponent]
 })
 export class ImageAnalyzerComponent {
   private readonly geminiService = inject(GeminiService);

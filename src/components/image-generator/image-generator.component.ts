@@ -1,7 +1,6 @@
 
 
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { GeminiService } from '../../services/gemini.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { DownloadModalComponent } from '../shared/download-modal/download-modal.component';
@@ -10,7 +9,7 @@ import { DownloadModalComponent } from '../shared/download-modal/download-modal.
   selector: 'app-image-generator',
   templateUrl: './image-generator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, LoaderComponent, DownloadModalComponent]
+  imports: [LoaderComponent, DownloadModalComponent]
 })
 export class ImageGeneratorComponent {
   private readonly geminiService = inject(GeminiService);
