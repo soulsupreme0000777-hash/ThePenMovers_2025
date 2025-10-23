@@ -1,6 +1,7 @@
 
 
 
+
 import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { SupabaseService } from './services/supabase.service';
 
@@ -13,6 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CreatorComponent } from './components/creator/creator.component';
 import { GrammarCheckerComponent } from './components/grammar-checker/grammar-checker.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoComponent } from './components/shared/logo/logo.component';
 
 
 type Feature = 'home' | 'generate' | 'edit' | 'analyze' | 'transcribe' | 'fix' | 'search' | 'creator';
@@ -36,7 +38,8 @@ interface NavItem {
     ImageAnalyzerComponent,
     CreatorComponent,
     GrammarCheckerComponent,
-    LoginComponent
+    LoginComponent,
+    LogoComponent
   ]
 })
 export class AppComponent {

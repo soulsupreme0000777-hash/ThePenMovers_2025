@@ -1,8 +1,10 @@
 
+
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GeminiService } from '../../services/gemini.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
+import { ImageUploadService } from '../../services/image-upload.service';
 
 @Component({
   selector: 'app-image-analyzer',
@@ -12,6 +14,7 @@ import { LoaderComponent } from '../shared/loader/loader.component';
 })
 export class ImageAnalyzerComponent {
   private readonly geminiService = inject(GeminiService);
+  private readonly imageUploadService = inject(ImageUploadService);
 
   readonly prompt = signal('What is in this image?');
   readonly selectedFile = signal<File | null>(null);
@@ -20,17 +23,13 @@ export class ImageAnalyzerComponent {
   readonly loading = signal(false);
   readonly error = this.geminiService.error;
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      this.selectedFile.set(file);
-
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.previewUrl.set(e.target.result);
-      reader.readAsDataURL(file);
+  async onFileSelected(event: Event): Promise<void> {
+    const result = await this.imageUploadService.handleFileSelection(event, this.error);
+    if (result) {
+      this.selectedFile.set(result.file);
+      this.previewUrl.set(result.previewUrl);
       this.analysis.set(null);
-      this.error.set(null);
+      this.error.set(null); // Clear previous errors
     }
   }
 

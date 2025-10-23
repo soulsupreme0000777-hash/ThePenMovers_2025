@@ -1,10 +1,12 @@
 
 
+
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GeminiService } from '../../services/gemini.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { DownloadModalComponent } from '../shared/download-modal/download-modal.component';
+import { ImageUploadService } from '../../services/image-upload.service';
 
 @Component({
   selector: 'app-image-editor',
@@ -14,6 +16,7 @@ import { DownloadModalComponent } from '../shared/download-modal/download-modal.
 })
 export class ImageEditorComponent {
   private readonly geminiService = inject(GeminiService);
+  private readonly imageUploadService = inject(ImageUploadService);
 
   readonly prompt = signal('');
   readonly selectedFile = signal<File | null>(null);
@@ -24,20 +27,14 @@ export class ImageEditorComponent {
   readonly error = this.geminiService.error;
   readonly showDownloadModal = signal(false);
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      this.processFile(input.files[0]);
+  async onFileSelected(event: Event): Promise<void> {
+    const result = await this.imageUploadService.handleFileSelection(event, this.error);
+    if (result) {
+      this.selectedFile.set(result.file);
+      this.originalImageUrl.set(result.previewUrl);
+      this.editedImageUrl.set(null);
+      this.error.set(null); // Clear previous errors
     }
-  }
-
-  private processFile(file: File): void {
-    this.selectedFile.set(file);
-    const reader = new FileReader();
-    reader.onload = (e: any) => this.originalImageUrl.set(e.target.result);
-    reader.readAsDataURL(file);
-    this.editedImageUrl.set(null);
-    this.error.set(null);
   }
 
   async editImage(): Promise<void> {
